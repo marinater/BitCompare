@@ -7,12 +7,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const getExchangeRates = fetch('https://api.exchangeratesapi.io/latest?base=USD')
+const currs = ['USD', 'INR', 'CAD', 'EUR'];
+const exchangeRates = {};
+const getExchangeRates = fetch('https://api.coinbase.com/v2/exchange-rates')
     .then(res => res.json())
     .then(res => {
-    const text = document.getElementById('conversion-rate');
-    const rates = res.rates;
-    text.innerText = `$1.00 = ${rates['INR'].toFixed(3)} INR`;
+    const table = document.getElementById('conversion-rates');
+    const rates = res.data.rates;
+    for (const curr of currs) {
+        const tr = document.createElement('tr');
+        table.appendChild(tr);
+        const td1 = document.createElement('td');
+        td1.innerText = curr;
+        const td2 = document.createElement('td');
+        td2.innerText = rates[curr] + ' USD';
+        td2.style.textAlign = 'right';
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+    }
     return rates;
 });
 const fetchPrice = (a, b, method) => __awaiter(this, void 0, void 0, function* () {
@@ -24,7 +36,7 @@ const fetchPrice = (a, b, method) => __awaiter(this, void 0, void 0, function* (
 });
 const toUSD = (price) => __awaiter(this, void 0, void 0, function* () {
     const exchangeRates = yield getExchangeRates;
-    const exchangeRate = exchangeRates[price.currency];
+    const exchangeRate = parseFloat(exchangeRates[price.currency]);
     return price.amount / exchangeRate;
 });
 function getColor(arb) {
@@ -41,8 +53,6 @@ function getColor(arb) {
     var h = r * 0x10000 + g * 0x100 + b * 0x1;
     return '#' + ('000000' + h.toString(16)).slice(-6);
 }
-const currs = ['USD', 'INR', 'AUD'];
-const exchangeRates = {};
 function invertColor(hex) {
     if (hex.indexOf('#') === 0) {
         hex = hex.slice(1);
