@@ -1,0 +1,67 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>BitCompare</title>
+	<meta name="description" content="BitCoin Arbitrage Checker">
+	<meta name="author" content="Samarth Patel">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.min.css">
+</head>
+<body>
+	<h1> BitCompare </h1>
+	<h2> Arbitrage Matrix </h2>
+	<details>
+		<summary>
+			<table>
+				<tbody id='matrix'>
+		
+				</tbody>
+			</table>
+		</summary>
+		<ul>
+			<li>
+				Each cell is calculated with the formula <code> (USD(buy) / USD(sell)) * 100 </code> <br/>
+			</li>
+			<li>
+				Cells turn green as they approach 15%
+			</li>
+		</ul>
+	</details>
+	<h3> Currency Conversion Rates </h3>
+	<details>
+		<summary>
+			<code id='conversion-rate'> </code>
+		</summary>
+			<ul>
+				<li>
+					Data from <a href='https://exchangeratesapi.io'> exchangeratesapi.io </a>
+				</li>
+			</ul>
+		</details>
+	<h3> Bitcoin Exchange Rates </h3>
+	<details>
+		<summary>
+			<table>
+				<tbody id='exchange-rates'>
+					<tr>
+						<th> Currency </th>
+						<th> Buy (BTC) </th>
+						<th> Sell (BTC) </th>
+					</tr>
+				</tbody>
+			</table>
+		</summary>
+		<ul>
+			<li>
+				Data from <a href='https://www.coinbase.com'> Coinbase </a>
+			</li>
+			<li>
+				Values update upon refreshing the page
+			</li>
+		</ul>
+	</details>
+</body>
+<script src="index.js"></script>
+</html>

@@ -1,0 +1,2 @@
+# BitCompare
+ Bitcoin Arbitrage Tracker
